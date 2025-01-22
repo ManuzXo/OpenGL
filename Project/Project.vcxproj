@@ -182,12 +182,14 @@
     <ClCompile Include="Components\SceneManager.cpp" />
     <ClCompile Include="Graphics\Render.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="Resources\Entity\Shader.cpp" />
     <ClCompile Include="Resources\ShaderResources.cpp" />
     <ClCompile Include="Utils\FileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\SceneManager.h" />
     <ClInclude Include="Graphics\Render.h" />
+    <ClInclude Include="Resources\Entity\Shader.h" />
     <ClInclude Include="Resources\ShaderResources.h" />
     <ClInclude Include="Utils\FileSystem.h" />
   </ItemGroup>

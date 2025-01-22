@@ -8,6 +8,8 @@
 
 bool Utils::FileSystem::SubPathFinder(std::string _filePath, std::string & _fullPathDest)
 {
+	//perchè quando si debugga in VS, il current path non 
+	// è dove sta il bin/ ma proprio dove stanno i file source
 #if _DEBUG
 	_filePath = "Assets/" + _filePath;
 #endif

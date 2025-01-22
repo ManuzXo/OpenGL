@@ -11,5 +11,4 @@ int main()
 	}
 	Components::SceneManager::Destroy();
 	system("pause");
-
 }

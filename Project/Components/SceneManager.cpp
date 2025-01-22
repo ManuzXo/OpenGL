@@ -18,7 +18,7 @@ void Components::SceneManager::Init()
 void Components::SceneManager::Destroy()
 {
 	std::cout << "##### SceneManager Destroy #####" << std::endl;
-
+	Resources::ShaderResources::Destroy();
 	Graphics::Render::Destroy();
 }
 
