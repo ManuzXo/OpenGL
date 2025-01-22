@@ -107,8 +107,8 @@
       <AdditionalDependencies>opengl32.lib;GLEW\glew32.lib;GLFW\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y</Command>
-      <Message>POST BUILD COPY ASSETS ELEMENT TO BUILD</Message>
+      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y &amp; xcopy /y "$(SolutionDir)lib\GLEW\glew32.dll" "$(TargetDir)"</Command>
+      <Message>POST BUILD COPY ASSETS &amp; DLL ELEMENT TO BUILD</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,8 +133,8 @@
       <AdditionalDependencies>opengl32.lib;GLEW\glew32.lib;GLFW\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y</Command>
-      <Message>POST BUILD COPY ASSETS ELEMENT TO BUILD</Message>
+      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y &amp; xcopy /y "$(SolutionDir)lib\GLEW\glew32.dll" "$(TargetDir)"</Command>
+      <Message>POST BUILD COPY ASSETS &amp; DLL ELEMENT TO BUILD</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,8 +154,8 @@
       <AdditionalDependencies>opengl32.lib;GLEW\glew32.lib;GLFW\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y</Command>
-      <Message>POST BUILD COPY ASSETS ELEMENT TO BUILD</Message>
+      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y &amp; xcopy /y "$(SolutionDir)lib\GLEW\glew32.dll" "$(TargetDir)"</Command>
+      <Message>POST BUILD COPY ASSETS &amp; DLL ELEMENT TO BUILD</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -180,8 +180,8 @@
       <AdditionalDependencies>opengl32.lib;GLEW\glew32.lib;GLFW\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y</Command>
-      <Message>POST BUILD COPY ASSETS ELEMENT TO BUILD</Message>
+      <Command>xcopy /E /I "$(ProjectDir)Assets\*.*" "$(OutDir)" /Y &amp; xcopy /y "$(SolutionDir)lib\GLEW\glew32.dll" "$(TargetDir)"</Command>
+      <Message>POST BUILD COPY ASSETS &amp; DLL ELEMENT TO BUILD</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
