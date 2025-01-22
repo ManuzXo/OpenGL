@@ -1,11 +1,4 @@
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <filesystem>
-#include "FileSystem.h"
-
-
+#include "../STDInclude.hpp"
 bool Utils::FileSystem::SubPathFinder(std::string _filePath, std::string & _fullPathDest)
 {
 	//perchè quando si debugga in VS, il current path non 

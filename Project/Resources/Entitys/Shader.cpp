@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "../../STDInclude.hpp"
 
 void Resources::Entitys::Shader::Compiled(bool _compiled)
 {

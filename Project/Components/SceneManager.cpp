@@ -1,7 +1,4 @@
-#include <iostream>
-#include "SceneManager.h"
-#include "../Resources/ShaderResources.h"
-#include "../Graphics/Render.h"
+#include "../STDInclude.hpp"
 void Components::SceneManager::Init()
 {
 	std::cout << "##### SceneManager Init #####" << std::endl;

@@ -1,5 +1,4 @@
-#include <iostream>
-#include "Components/SceneManager.h"
+#include "STDInclude.hpp"
 int main()
 {
 	try {

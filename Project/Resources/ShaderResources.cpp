@@ -1,10 +1,7 @@
-#include <iostream>
-#include <filesystem>
-#include "GLEW/glew.h"
-#include "ShaderResources.h"
-#include "../Utils/FileSystem.h"
+#include "../STDInclude.hpp"
+
 std::vector<Resources::Entitys::Shader*> Resources::ShaderResources::m_shaders;
-GLuint Resources::ShaderResources::m_shaderProgram;
+GLuint Resources::ShaderResources::m_program;
 bool Resources::ShaderResources::Init()
 {
 	std::cout << "##### ShaderResources Init #####" << std::endl;
@@ -13,13 +10,16 @@ bool Resources::ShaderResources::Init()
 	{
 		std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 		std::string _fullPath;
-		if (CreateShaderProgram() && Utils::FileSystem::SubPathFinder("shaders", _fullPath))
+		if (Utils::FileSystem::SubPathFinder("shaders", _fullPath))
 		{
-			for (const auto& _entry : fs::directory_iterator(_fullPath))
+			if (CreateProgram())
 			{
-				if (fs::is_regular_file(_entry))
+				for (const auto& _entry : fs::directory_iterator(_fullPath))
 				{
-					FileShaderManager(_entry);
+					if (fs::is_regular_file(_entry))
+					{
+						FileShaderManager(_entry);
+					}
 				}
 			}
 			return LinkProgram();
@@ -43,7 +43,7 @@ void Resources::ShaderResources::Destroy()
 		{
 			auto _id = _shader->GetShaderID();
 			if (IsProgramCreated())
-				glDetachShader(m_shaderProgram, _id);
+				glDetachShader(m_program, _id);
 
 			glDeleteShader(_shader->GetShaderID());
 		}
@@ -54,8 +54,13 @@ void Resources::ShaderResources::Destroy()
 	//DELETE PROGRAM SHADER
 	if (IsProgramCreated())
 	{
-		glDeleteProgram(m_shaderProgram);
+		glDeleteProgram(m_program);
 	}
+}
+
+GLuint Resources::ShaderResources::GetProgram()
+{
+	return m_program;
 }
 
 void Resources::ShaderResources::FileShaderManager(const std::filesystem::directory_entry& _file)
@@ -76,15 +81,15 @@ void Resources::ShaderResources::FileShaderManager(const std::filesystem::direct
 		if (_shaderEntity->IsCompiled())
 		{
 			//ATTACH THE SHADER TO THE PROGRAM
-			glAttachShader(m_shaderProgram, _shaderEntity->GetShaderID());
+			glAttachShader(m_program, _shaderEntity->GetShaderID());
 		}
 	}
 }
 
-bool Resources::ShaderResources::CreateShaderProgram()
+bool Resources::ShaderResources::CreateProgram()
 {
-	m_shaderProgram = glCreateProgram();
-	if (m_shaderProgram == 0)
+	m_program = glCreateProgram();
+	if (m_program == 0)
 	{
 		std::cerr << "Errore nel creare lo shaderProgram" << std::endl;
 		return false;
@@ -94,17 +99,17 @@ bool Resources::ShaderResources::CreateShaderProgram()
 
 bool Resources::ShaderResources::IsProgramCreated()
 {
-	return m_shaderProgram != 0;
+	return m_program != 0;
 }
 
 bool Resources::ShaderResources::LinkProgram()
 {
-	glLinkProgram(m_shaderProgram);
+	glLinkProgram(m_program);
 	GLint _programLinked;
-	glGetProgramiv(m_shaderProgram, GL_LINK_STATUS, &_programLinked);
+	glGetProgramiv(m_program, GL_LINK_STATUS, &_programLinked);
 	if (!_programLinked) {
 		char infoLog[1024];
-		glGetProgramInfoLog(m_shaderProgram, 1024, nullptr, infoLog);
+		glGetProgramInfoLog(m_program, 1024, nullptr, infoLog);
 		std::cerr << "Errore nel collegamento del programma shader: " << infoLog << std::endl;
 		return false;
 	}

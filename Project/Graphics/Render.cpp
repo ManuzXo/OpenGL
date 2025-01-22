@@ -1,9 +1,19 @@
-#include <iostream>
-#include "Render.h"
+#include "../STDInclude.hpp"
 
 GLFWwindow* Graphics::Render::m_window = NULL;
 GLFWmonitor* Graphics::Render::m_monitor = NULL;
 float Graphics::Render::m_fps = 60.0;
+
+
+float vertices[] = {
+	// Posizioni dei vertici (x, y, z)
+	 0.0f,  0.5f, 0.0f, // Vertice superiore
+	-0.5f, -0.5f, 0.0f, // Vertice sinistro
+	 0.5f, -0.5f, 0.0f  // Vertice destro
+};
+GLuint VAO, VBO;
+
+
 
 bool Graphics::Render::Init()
 {
@@ -65,6 +75,24 @@ bool Graphics::Render::Init()
 
 void Graphics::Render::MainLoop()
 {
+	// Creare VAO
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	// Creare VBO
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	// Specificare l'attributo dei vertici (layout(location = 0) in vec3 aPos)
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// Scollega il VAO per evitare modifiche accidentali
+	glBindVertexArray(0);
+
+
+
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
 
@@ -80,6 +108,14 @@ void Graphics::Render::MainLoop()
 
 		// Rendering
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		//Use Program
+		glUseProgram(Resources::ShaderResources::GetProgram());
+		
+		// Bind del VAO e disegna i vertici
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3); // Disegna 3 vertici come un triangolo
+		glBindVertexArray(0);
 
 		// Swap dei buffer
 		glfwSwapBuffers(m_window);
@@ -98,6 +134,10 @@ void Graphics::Render::Destroy()
 		glfwDestroyWindow(m_window);
 	if (m_monitor != NULL)
 		free(m_monitor);
+
+	// Cancella i VAO e VBO
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 }
 
 void Graphics::Render::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
