@@ -105,7 +105,8 @@ void Graphics::Render::Destroy()
 		glfwDestroyWindow(m_window);
 	if (m_monitor != NULL)
 		free(m_monitor);
-	glfwTerminate();
+	//SE NON COMMENTATO ALLA CHIUSURA DELL'APP FA "Gamma ramp size must be 256"
+	//glfwTerminate();
 }
 
 void Graphics::Render::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
