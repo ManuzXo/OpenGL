@@ -188,6 +188,7 @@
     <ClCompile Include="Components\SceneManager.cpp" />
     <ClCompile Include="Graphics\Render.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="Resources\Entitys\GameObject.cpp" />
     <ClCompile Include="Resources\Entitys\Shader.cpp" />
     <ClCompile Include="Resources\ShaderResources.cpp" />
     <ClCompile Include="Utils\FileSystem.cpp" />
@@ -195,10 +196,12 @@
   <ItemGroup>
     <ClInclude Include="Components\SceneManager.h" />
     <ClInclude Include="Graphics\Render.h" />
+    <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\Shader.h" />
     <ClInclude Include="STDInclude.hpp" />
     <ClInclude Include="Resources\ShaderResources.h" />
     <ClInclude Include="Utils\FileSystem.h" />
+    <ClInclude Include="Utils\Structs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\shaders\Fragment Shader.frag" />
