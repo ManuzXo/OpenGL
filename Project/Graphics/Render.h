@@ -6,6 +6,9 @@ namespace Graphics {
 		static void MainLoop();
 		static void Destroy();
 	private:
+		static void MoveCamera();
+		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+		static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 		/// <summary>
 		/// https://www.glfw.org/docs/3.3/group__input.html#ga5bd751b27b90f865d2ea613533f0453c
 		/// </summary>
@@ -20,5 +23,7 @@ namespace Graphics {
 		static GLFWwindow* m_window;
 		static GLFWmonitor* m_monitor;
 		static float m_fps;
+		static int m_widthMonitor, m_heightMonitor;
+		static double m_deltaTime;
 	};
 }
