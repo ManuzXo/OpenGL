@@ -42,6 +42,9 @@
     <ClCompile Include="Resources\GameObjectResources.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Color.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\ShaderResources.h">
@@ -69,6 +72,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Resources\GameObjectResources.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Color.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

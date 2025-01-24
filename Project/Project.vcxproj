@@ -192,6 +192,7 @@
     <ClCompile Include="Resources\Entitys\Shader.cpp" />
     <ClCompile Include="Resources\GameObjectResources.cpp" />
     <ClCompile Include="Resources\ShaderResources.cpp" />
+    <ClCompile Include="Utils\Color.cpp" />
     <ClCompile Include="Utils\FileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +203,7 @@
     <ClInclude Include="Resources\GameObjectResources.h" />
     <ClInclude Include="STDInclude.hpp" />
     <ClInclude Include="Resources\ShaderResources.h" />
+    <ClInclude Include="Utils\Color.h" />
     <ClInclude Include="Utils\FileSystem.h" />
     <ClInclude Include="Utils\Structs.h" />
   </ItemGroup>

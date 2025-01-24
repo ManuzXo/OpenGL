@@ -5,7 +5,7 @@ namespace Utils {
 	};
 	struct vertexData_t {
 		vec3_t position;
-		float r, g, b;
+		Color color;
 	};
 	
 }
