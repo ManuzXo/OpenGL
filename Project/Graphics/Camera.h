@@ -7,9 +7,10 @@ namespace Graphics {
 		static void SetFov(float _fov);
 		static float GetFov();
 		static glm::mat4* GetProjection();
+		static glm::mat4* GetCameraView();
 	private:
 		static float m_aspectRatio;
 		static float m_fov;
-		static glm::mat4 m_projection;
+		static glm::mat4 m_projection, m_cameraView;
 	};
 }

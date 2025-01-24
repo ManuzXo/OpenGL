@@ -4,8 +4,6 @@ GLFWwindow* Graphics::Render::m_window = NULL;
 GLFWmonitor* Graphics::Render::m_monitor = NULL;
 float Graphics::Render::m_fps = 60.0;
 
-glm::mat4 view;
-
 bool Graphics::Render::Init()
 {
 	std::cout << "##### Render Init #####" << std::endl;
@@ -51,12 +49,6 @@ bool Graphics::Render::Init()
 
 					Camera::SetAspectRatio(_mode->width, _mode->height);
 					
-					// Inizializza la matrice di visione
-					view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), // Posizione della telecamera
-						glm::vec3(0.0f, 0.0f, 0.0f), // Punto verso cui guarda la telecamera
-						glm::vec3(0.0f, 1.0f, 0.0f)); // Vettore Up
-
-
 					return true;
 				}
 				else
@@ -88,6 +80,7 @@ bool Graphics::Render::Init()
 void Graphics::Render::MainLoop()
 {
 	auto _projection = Camera::GetProjection();
+	auto _cameraView = Camera::GetCameraView();
 
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
@@ -95,6 +88,7 @@ void Graphics::Render::MainLoop()
 	// Inizializza gli angoli di rotazione
 	float angleX = 0.0f; // Angolo di rotazione attorno all'asse X (su e giù)
 	float angleY = 0.0f; // Angolo di rotazione attorno all'asse Y (sinistra e destra)
+
 	while (!glfwWindowShouldClose(m_window)) {
 		double _currentFrameTime = glfwGetTime();
 		double _deltaTime = _currentFrameTime - _lastFrameTime;
@@ -131,7 +125,8 @@ void Graphics::Render::MainLoop()
 
 		// Passa le matrici al vertex shader
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(*_cameraView));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(*_projection));
 
 		for (auto _gObj : Resources::GameObjectResources::m_gameObjects)
