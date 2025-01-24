@@ -22,5 +22,6 @@
 #include "Resources/Entitys/GameObject.h"
 #include "Resources/GameObjectResources.h"
 #include "Resources/ShaderResources.h"
+#include "Graphics/Camera.h"
 #include "Graphics/Render.h"
 #include "Components/SceneManager.h"

@@ -4,7 +4,6 @@ GLFWwindow* Graphics::Render::m_window = NULL;
 GLFWmonitor* Graphics::Render::m_monitor = NULL;
 float Graphics::Render::m_fps = 60.0;
 
-glm::mat4 projection;
 glm::mat4 view;
 
 bool Graphics::Render::Init()
@@ -19,9 +18,11 @@ bool Graphics::Render::Init()
 		m_monitor = glfwGetPrimaryMonitor();
 		if (m_monitor != NULL)
 		{
+			
 			const GLFWvidmode* _mode = glfwGetVideoMode(m_monitor);
 			if (_mode != NULL)
 			{
+				
 				glfwWindowHint(GLFW_RED_BITS, _mode->redBits);
 				glfwWindowHint(GLFW_GREEN_BITS, _mode->greenBits);
 				glfwWindowHint(GLFW_BLUE_BITS, _mode->blueBits);
@@ -41,10 +42,15 @@ bool Graphics::Render::Init()
 					std::cout << "Creazione del callback per gli errore!" << std::endl;
 					glfwSetErrorCallback(ErrorCallBack);
 
+					std::cout << "Creazione del callback per il frame buffer size window!" << std::endl;
+					glfwSetFramebufferSizeCallback(m_window, FrameBufferSizeCallback);
+
 					std::cout << "Versione OpenGL: " << glGetString(GL_VERSION) << std::endl;
+					
 					glEnable(GL_DEPTH_TEST);
-					// Inizializza la matrice di proiezione
-					projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+
+					Camera::SetAspectRatio(_mode->width, _mode->height);
+					
 					// Inizializza la matrice di visione
 					view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), // Posizione della telecamera
 						glm::vec3(0.0f, 0.0f, 0.0f), // Punto verso cui guarda la telecamera
@@ -58,6 +64,7 @@ bool Graphics::Render::Init()
 					std::cerr << "Errore nella creazione della finestra Windows!" << std::endl;
 					return false;
 				}
+				delete _mode;
 			}
 			else
 			{
@@ -80,7 +87,8 @@ bool Graphics::Render::Init()
 
 void Graphics::Render::MainLoop()
 {
-	
+	auto _projection = Camera::GetProjection();
+
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
 
@@ -124,7 +132,7 @@ void Graphics::Render::MainLoop()
 		// Passa le matrici al vertex shader
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(*_projection));
 
 		for (auto _gObj : Resources::GameObjectResources::m_gameObjects)
 		{
@@ -155,13 +163,32 @@ void Graphics::Render::Destroy()
 
 void Graphics::Render::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_ESCAPE)
+	switch (key)
+	{
+	case GLFW_KEY_ESCAPE:
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
+		break;
+	case GLFW_KEY_1:
+		Camera::SetFov(Camera::GetFov() + 1.0f);
+		break;
+	case GLFW_KEY_2:
+		Camera::SetFov(Camera::GetFov() - 1.0f);
+		break;
+	default:
+		break;
+	}
 	std::cout << "Key: " << key << " ScanCode: " << scancode << " Action: " << action << " Mods: " << mods << std::endl;
 }
 
 void Graphics::Render::ErrorCallBack(int error_code, const char* description)
 {
 	std::cerr << "GLFW Codice di errore: " << error_code << " Descrizione: " << description << std::endl;
+}
+
+void Graphics::Render::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
+{
+	// Imposta il viewport in base alle nuove dimensioni della finestra
+	glViewport(0, 0, width, height);
+	Camera::SetAspectRatio(width, height);
 }
 

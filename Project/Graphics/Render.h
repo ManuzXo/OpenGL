@@ -16,6 +16,7 @@ namespace Graphics {
 		/// <param name="mods"></param>
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void ErrorCallBack(int error_code, const char* description);
+		static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
 		static GLFWwindow* m_window;
 		static GLFWmonitor* m_monitor;
 		static float m_fps;

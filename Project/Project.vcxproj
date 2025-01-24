@@ -186,6 +186,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Components\SceneManager.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\Render.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\SceneManager.h" />
+    <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\Render.h" />
     <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\Shader.h" />
