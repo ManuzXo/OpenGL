@@ -190,6 +190,7 @@
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
     <ClCompile Include="Resources\Entitys\Shader.cpp" />
+    <ClCompile Include="Resources\GameObjectResources.cpp" />
     <ClCompile Include="Resources\ShaderResources.cpp" />
     <ClCompile Include="Utils\FileSystem.cpp" />
   </ItemGroup>
@@ -198,18 +199,25 @@
     <ClInclude Include="Graphics\Render.h" />
     <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\Shader.h" />
+    <ClInclude Include="Resources\GameObjectResources.h" />
     <ClInclude Include="STDInclude.hpp" />
     <ClInclude Include="Resources\ShaderResources.h" />
     <ClInclude Include="Utils\FileSystem.h" />
     <ClInclude Include="Utils\Structs.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\models\cube.mtl" />
     <None Include="Assets\shaders\Fragment Shader.frag" />
     <None Include="Assets\shaders\VertexShader.vert" />
     <None Include="shaders\Fragment Shader.frag">
       <FileType>Document</FileType>
     </None>
     <None Include="shaders\VertexShader.vert">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\models\cube.obj">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

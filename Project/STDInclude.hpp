@@ -15,6 +15,7 @@
 #include "Utils/FileSystem.h"
 #include "Resources/Entitys/Shader.h"
 #include "Resources/Entitys/GameObject.h"
+#include "Resources/GameObjectResources.h"
 #include "Resources/ShaderResources.h"
 #include "Graphics/Render.h"
 #include "Components/SceneManager.h"

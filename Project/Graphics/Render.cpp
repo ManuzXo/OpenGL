@@ -4,64 +4,6 @@ GLFWwindow* Graphics::Render::m_window = NULL;
 GLFWmonitor* Graphics::Render::m_monitor = NULL;
 float Graphics::Render::m_fps = 60.0;
 
-Utils::vertexData_t m_cube[] = {
-	// Faccia frontale
-	{{-0.5f, -0.5f, 0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{-0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
-
-	{{-0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
-
-	// Faccia posteriore
-	{{-0.5f, -0.5f, -0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 2 (blu)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 3 (verde)
-
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 3 (verde) (ripetuto)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 2 (blu) (ripetuto)
-	{{0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
-
-	// Faccia sinistra
-	{{-0.5f, -0.5f, -0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
-
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{-0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
-
-	// Faccia destra
-	{{0.5f, -0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},   // Vertice 1 (rosso)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},    // Vertice 3 (blu)
-
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},    // Vertice 3 (blu) (ripetuto)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
-
-	// Faccia superiore
-	{{-0.5f, 0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},   // Vertice 1 (rosso)
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},    // Vertice 2 (verde)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
-
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},    // Vertice 2 (verde) (ripetuto)
-	{{0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
-
-	// Faccia inferiore
-	{{-0.5f, -0.5f, -0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
-
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{0.5f, -0.5f, 0.5f}, 1.0f, 1.0f, 0.0f}    // Vertice 4 (giallo)
-};
-
-
-
 bool Graphics::Render::Init()
 {
 	std::cout << "##### Render Init #####" << std::endl;
@@ -126,26 +68,7 @@ bool Graphics::Render::Init()
 
 void Graphics::Render::MainLoop()
 {
-	GLuint VBO;
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(m_cube), m_cube, GL_STATIC_DRAW);
-
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
-	// Specifica gli attributi dei vertici
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);  // Posizione
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));  // Colore
-	glEnableVertexAttribArray(1);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);  // Facoltativo: scollega il VBO
-	glBindVertexArray(0);             // Facoltativo: scollega il VAO
-
-
+	
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
 
@@ -165,8 +88,11 @@ void Graphics::Render::MainLoop()
 		//Use Program
 		glUseProgram(Resources::ShaderResources::GetProgram());
 
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		for (auto _gObj : Resources::GameObjectResources::m_gameObjects)
+		{
+			glBindVertexArray(_gObj->GetVertexArray());
+			glDrawArrays(GL_TRIANGLES, 0, _gObj->GetVertexSize());
+		}
 
 		// Swap dei buffer
 		glfwSwapBuffers(m_window);

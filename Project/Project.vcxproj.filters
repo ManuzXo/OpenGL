@@ -39,6 +39,9 @@
     <ClCompile Include="Resources\Entitys\GameObject.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Resources\GameObjectResources.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\ShaderResources.h">
@@ -65,6 +68,9 @@
     <ClInclude Include="Resources\Entitys\GameObject.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Resources\GameObjectResources.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\VertexShader.vert">
@@ -75,5 +81,7 @@
     </None>
     <None Include="Assets\shaders\Fragment Shader.frag" />
     <None Include="Assets\shaders\VertexShader.vert" />
+    <None Include="Assets\models\cube.mtl" />
+    <None Include="Assets\models\cube.obj" />
   </ItemGroup>
 </Project>

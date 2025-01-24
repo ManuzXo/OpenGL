@@ -1,7 +1,98 @@
 #include "../../STDInclude.hpp"
 
+Resources::Entitys::GameObject::GameObject()
+{
+}
+
+Resources::Entitys::GameObject::~GameObject()
+{
+	if (m_vertexBufferObject != 0) {
+		glDeleteBuffers(1, &m_vertexBufferObject);
+		m_vertexBufferObject = 0;
+	}
+
+	if (m_vertexArrayObject != 0) {
+		glDeleteVertexArrays(1, &m_vertexArrayObject);
+		m_vertexArrayObject = 0;
+	}
+
+	m_vertexData.clear();
+}
+
 void Resources::Entitys::GameObject::AddData(Utils::vertexData_t _data)
 {
 	m_vertexData.push_back(_data);
 }
+
+void Resources::Entitys::GameObject::CopyData(std::vector<Utils::vertexData_t> _data)
+{
+	if (!_data.empty())
+	{
+		m_vertexData.clear();
+		m_vertexData = _data;
+	}
+}
+
+void Resources::Entitys::GameObject::CopyData(Utils::vertexData_t* _data, size_t _size)
+{
+	if (_data != nullptr && _size > 0) // Controllo validità del puntatore e dimensione
+	{
+		m_vertexData.clear(); // Svuoto il vettore precedente
+
+		for (size_t i = 0; i < _size; ++i) // Itero sul numero di elementi
+		{
+			m_vertexData.push_back(_data[i]); // Copio ogni elemento
+		}
+	}
+}
+
+int Resources::Entitys::GameObject::GetVertexSize()
+{
+	return m_vertexData.size();
+}
+
+GLuint Resources::Entitys::GameObject::GetVertexArray()
+{
+	return m_vertexArrayObject;
+}
+
+GLuint Resources::Entitys::GameObject::GetVertexBuffer()
+{
+	return m_vertexBufferObject;
+}
+
+bool Resources::Entitys::GameObject::BuildVertex()
+{
+	if (m_vertexData.empty())
+		return false;
+
+	glGenBuffers(1, &m_vertexBufferObject);
+
+	if (m_vertexBufferObject == 0)
+		return false;
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+	glBufferData(GL_ARRAY_BUFFER, m_vertexData.size() * sizeof(Utils::vertexData_t), m_vertexData.data(), GL_STATIC_DRAW);
+
+	glGenVertexArrays(1, &m_vertexArrayObject);
+	if (m_vertexArrayObject == 0)
+	{
+		glDeleteBuffers(1, &m_vertexBufferObject);
+		return false;
+	}
+
+	glBindVertexArray(m_vertexArrayObject);
+
+	// Specifica gli attributi dei vertici
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);  // Posizione
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));  // Colore
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	return true;
+}
+
 
