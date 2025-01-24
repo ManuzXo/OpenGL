@@ -79,19 +79,23 @@ void Resources::GameObjectResources::FileModelManager(const std::filesystem::dir
 	std::string _fileData;
 	auto _fullPath = _entry.path();
 	auto _extension = _fullPath.extension().string();
-	if (!_extension.compare(".obj") && Utils::FileSystem::ReadFile(_fullPath.string(), _fileData))
+	if (!_extension.compare(".obj"))
 	{
-		std::cout << "Il file .obj è stato letto" << std::endl;
-		auto _gObj = new Entitys::GameObject();
-		_gObj->CopyData(m_cube, sizeof(m_cube) / sizeof(m_cube[0]));
-		if (_gObj->BuildVertex())
+		Models::OBJ _obj;
+		if (Models::OBJ::Load(_fullPath.string(), &_obj))
 		{
-			std::cout << "Compilazione .obj fatta!" << std::endl;
-			m_gameObjects.push_back(_gObj);
-		}
-		else
-		{
-			std::cerr << "Errore nella compilazione .obj" << std::endl;
+			std::cout << "Il file .obj è stato letto" << std::endl;
+			auto _gObj = new Entitys::GameObject();
+			_gObj->CopyData(_obj.GetVertexData());
+			if (_gObj->BuildVertex())
+			{
+				std::cout << "Compilazione .obj fatta!" << std::endl;
+				m_gameObjects.push_back(_gObj);
+			}
+			else
+			{
+				std::cerr << "Errore nella compilazione .obj" << std::endl;
+			}
 		}
 	}
 }

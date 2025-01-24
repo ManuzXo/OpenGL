@@ -18,6 +18,8 @@
 #include "Utils/Color.h"
 #include "Utils/Structs.h"
 #include "Utils/FileSystem.h"
+#include "Resources/Models/BaseModel.h"
+#include "Resources/Models/OBJ.h"
 #include "Resources/Entitys/Shader.h"
 #include "Resources/Entitys/GameObject.h"
 #include "Resources/GameObjectResources.h"
