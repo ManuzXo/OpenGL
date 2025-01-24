@@ -4,6 +4,9 @@ GLFWwindow* Graphics::Render::m_window = NULL;
 GLFWmonitor* Graphics::Render::m_monitor = NULL;
 float Graphics::Render::m_fps = 60.0;
 
+glm::mat4 projection;
+glm::mat4 view;
+
 bool Graphics::Render::Init()
 {
 	std::cout << "##### Render Init #####" << std::endl;
@@ -39,6 +42,15 @@ bool Graphics::Render::Init()
 					glfwSetErrorCallback(ErrorCallBack);
 
 					std::cout << "Versione OpenGL: " << glGetString(GL_VERSION) << std::endl;
+					glEnable(GL_DEPTH_TEST);
+					// Inizializza la matrice di proiezione
+					projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+					// Inizializza la matrice di visione
+					view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), // Posizione della telecamera
+						glm::vec3(0.0f, 0.0f, 0.0f), // Punto verso cui guarda la telecamera
+						glm::vec3(0.0f, 1.0f, 0.0f)); // Vettore Up
+
+
 					return true;
 				}
 				else
@@ -72,6 +84,9 @@ void Graphics::Render::MainLoop()
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
 
+	// Inizializza gli angoli di rotazione
+	float angleX = 0.0f; // Angolo di rotazione attorno all'asse X (su e giù)
+	float angleY = 0.0f; // Angolo di rotazione attorno all'asse Y (sinistra e destra)
 	while (!glfwWindowShouldClose(m_window)) {
 		double _currentFrameTime = glfwGetTime();
 		double _deltaTime = _currentFrameTime - _lastFrameTime;
@@ -81,12 +96,35 @@ void Graphics::Render::MainLoop()
 		}
 
 		_lastFrameTime = _currentFrameTime;
+		// Incrementiamo gli angoli di rotazione
+		angleX += 0.5f;  // Angolo di rotazione attorno all'asse X
+		angleY += 1.0f;  // Angolo di rotazione attorno all'asse Y
+
+		// Creiamo le matrici di rotazione per X e Y
+		glm::mat4 model = glm::mat4(1.0f);  // Matrice identità
+
+		// Rotazione attorno all'asse X (su e giù)
+		model = glm::rotate(model, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		// Rotazione attorno all'asse Y (sinistra e destra)
+		model = glm::rotate(model, glm::radians(angleY), glm::vec3(0.0f, 1.0f, 0.0f));
+
 
 		// Rendering
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//Use Program
 		glUseProgram(Resources::ShaderResources::GetProgram());
+
+		// Ottieni le posizioni degli uniformi "model", "view" e "projection"
+		GLuint modelLoc = glGetUniformLocation(Resources::ShaderResources::GetProgram(), "model");
+		GLuint viewLoc = glGetUniformLocation(Resources::ShaderResources::GetProgram(), "view");
+		GLuint projLoc = glGetUniformLocation(Resources::ShaderResources::GetProgram(), "projection");
+
+		// Passa le matrici al vertex shader
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 		for (auto _gObj : Resources::GameObjectResources::m_gameObjects)
 		{

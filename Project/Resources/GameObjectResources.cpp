@@ -4,57 +4,57 @@ std::vector<Resources::Entitys::GameObject*> Resources::GameObjectResources::m_g
 static Utils::vertexData_t m_cube[] = {
 	// Faccia frontale
 	{{-0.5f, -0.5f, 0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{-0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
+	{{0.5f, -0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},  // Vertice 2 (verde)
+	{{-0.5f, 0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},  // Vertice 3 (blu)
 
-	{{-0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
+	{{-0.5f, 0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},  // Vertice 3 (blu) (ripetuto)
+	{{0.5f, -0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
+	{{0.5f, 0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},   // Vertice 4 (giallo)
 
 	// Faccia posteriore
-	{{-0.5f, -0.5f, -0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 2 (blu)
+	{{-0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f}, // Vertice 1 (rosso)
+	{{-0.5f, 0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (blu)
 	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 3 (verde)
 
 	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 3 (verde) (ripetuto)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 2 (blu) (ripetuto)
-	{{0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
+	{{-0.5f, 0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (blu) (ripetuto)
+	{{0.5f, 0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
 
 	// Faccia sinistra
-	{{-0.5f, -0.5f, -0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
+	{{-0.5f, -0.5f, -0.5f}, 0.0f, 0.0f, 1.0f}, // Vertice 1 (rosso)
+	{{-0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 2 (verde)
 	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
 
 	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{-0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
+	{{-0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 2 (verde) (ripetuto)
+	{{-0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},   // Vertice 4 (giallo)
 
 	// Faccia destra
-	{{0.5f, -0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},   // Vertice 1 (rosso)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},    // Vertice 3 (blu)
+	{{0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 0.0f},   // Vertice 1 (rosso)
+	{{0.5f, -0.5f, -0.5f}, 0.0f, 0.0f, 0.0f},  // Vertice 2 (verde)
+	{{0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 0.0f},    // Vertice 3 (blu)
 
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},    // Vertice 3 (blu) (ripetuto)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
+	{{0.5f, 0.5f, 0.5f}, 0.0f, 0.0f, 0.0f},    // Vertice 3 (blu) (ripetuto)
+	{{0.5f, -0.5f, -0.5f}, 0.0f, 0.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
+	{{0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 0.0f},   // Vertice 4 (giallo)
 
 	// Faccia superiore
-	{{-0.5f, 0.5f, 0.5f}, 1.0f, 0.0f, 0.0f},   // Vertice 1 (rosso)
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},    // Vertice 2 (verde)
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
+	{{-0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 1 (rosso)
+	{{0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},    // Vertice 2 (verde)
+	{{-0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},  // Vertice 3 (blu)
 
-	{{-0.5f, 0.5f, -0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{0.5f, 0.5f, 0.5f}, 0.0f, 1.0f, 0.0f},    // Vertice 2 (verde) (ripetuto)
+	{{-0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},  // Vertice 3 (blu) (ripetuto)
+	{{0.5f, 0.5f, 0.5f}, 1.0f, 1.0f, 0.0f},    // Vertice 2 (verde) (ripetuto)
 	{{0.5f, 0.5f, -0.5f}, 1.0f, 1.0f, 0.0f},   // Vertice 4 (giallo)
 
 	// Faccia inferiore
-	{{-0.5f, -0.5f, -0.5f}, 1.0f, 0.0f, 0.0f}, // Vertice 1 (rosso)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde)
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu)
+	{{-0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 1.0f}, // Vertice 1 (rosso)
+	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 1.0f},  // Vertice 2 (verde)
+	{{-0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 1.0f},  // Vertice 3 (blu)
 
-	{{-0.5f, -0.5f, 0.5f}, 0.0f, 0.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
-	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 0.0f},  // Vertice 2 (verde) (ripetuto)
-	{{0.5f, -0.5f, 0.5f}, 1.0f, 1.0f, 0.0f}    // Vertice 4 (giallo)
+	{{-0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 1.0f},  // Vertice 3 (blu) (ripetuto)
+	{{0.5f, -0.5f, -0.5f}, 0.0f, 1.0f, 1.0f},  // Vertice 2 (verde) (ripetuto)
+	{{0.5f, -0.5f, 0.5f}, 0.0f, 1.0f, 1.0f}    // Vertice 4 (giallo)
 };
 bool Resources::GameObjectResources::Init()
 {
