@@ -33,7 +33,7 @@
     <ClCompile Include="Utils\FileSystem.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Resources\Entitys\Shader.cpp">
+    <ClCompile Include="Resources\Entitys\GL\Shader.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="Resources\Entitys\GameObject.cpp">
@@ -48,10 +48,10 @@
     <ClCompile Include="Graphics\Camera.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Resources\Model\OBJ.cpp">
+    <ClCompile Include="Resources\Models\OBJ.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Resources\Models\OBJ.cpp">
+    <ClCompile Include="Resources\Entitys\GL\Program.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +68,7 @@
     <ClInclude Include="Utils\FileSystem.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Resources\Entitys\Shader.h">
+    <ClInclude Include="Resources\Entitys\GL\Shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="STDInclude.hpp">
@@ -98,6 +98,9 @@
     <ClInclude Include="Resources\Models\BaseModel.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Resources\Entitys\GL\Program.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\VertexShader.vert">
@@ -106,11 +109,8 @@
     <None Include="shaders\Fragment Shader.frag">
       <Filter>shaders</Filter>
     </None>
-    <None Include="Assets\shaders\Fragment Shader.frag" />
-    <None Include="Assets\shaders\VertexShader.vert" />
-    <None Include="Assets\models\cube.mtl" />
-    <None Include="Assets\models\cube.obj" />
-    <None Include="Assets\models\Monkey.mtl" />
-    <None Include="Assets\models\Monkey.obj" />
+    <None Include="Assets\shaders\shader1" />
+    <None Include="Assets\models\cube-monkey.mtl" />
+    <None Include="Assets\models\cube-monkey.obj" />
   </ItemGroup>
 </Project>

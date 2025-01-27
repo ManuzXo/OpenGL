@@ -190,8 +190,9 @@
     <ClCompile Include="Graphics\Render.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
+    <ClCompile Include="Resources\Entitys\GL\Program.cpp" />
     <ClCompile Include="Resources\Models\OBJ.cpp" />
-    <ClCompile Include="Resources\Entitys\Shader.cpp" />
+    <ClCompile Include="Resources\Entitys\GL\Shader.cpp" />
     <ClCompile Include="Resources\GameObjectResources.cpp" />
     <ClCompile Include="Resources\ShaderResources.cpp" />
     <ClCompile Include="Utils\Color.cpp" />
@@ -202,10 +203,11 @@
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\Render.h" />
     <ClInclude Include="Resources\Entitys\GameObject.h" />
+    <ClInclude Include="Resources\Entitys\GL\Program.h" />
     <ClInclude Include="Resources\Models\BaseModel.h" />
     <ClInclude Include="Resources\Models\OBJ.h" />
     <ClInclude Include="Resources\Model\OBJ.h" />
-    <ClInclude Include="Resources\Entitys\Shader.h" />
+    <ClInclude Include="Resources\Entitys\GL\Shader.h" />
     <ClInclude Include="Resources\GameObjectResources.h" />
     <ClInclude Include="STDInclude.hpp" />
     <ClInclude Include="Resources\ShaderResources.h" />
@@ -214,10 +216,8 @@
     <ClInclude Include="Utils\Structs.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\models\cube.mtl" />
-    <None Include="Assets\models\Monkey.mtl" />
-    <None Include="Assets\shaders\Fragment Shader.frag" />
-    <None Include="Assets\shaders\VertexShader.vert" />
+    <None Include="Assets\models\cube-monkey.mtl" />
+    <None Include="Assets\shaders\shader1" />
     <None Include="shaders\Fragment Shader.frag">
       <FileType>Document</FileType>
     </None>
@@ -226,12 +226,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\models\cube.obj">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\models\Monkey.obj">
+    <None Include="Assets\models\cube-monkey.obj">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

@@ -1,8 +1,9 @@
 #pragma once
-namespace Resources::Entitys{
+namespace Resources::Entitys::GL{
 	class Shader {
 	public:
-		Shader(GLint _id, GLenum _type) : m_shaderId(_id), m_type(_type){}
+		Shader(GLint _id, GLenum _type);
+		~Shader();
 		void Compiled(bool _compiled);
 		GLint GetShaderID();
 		GLenum GetType();

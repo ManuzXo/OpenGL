@@ -4,6 +4,9 @@ namespace Graphics {
 	public:
 		static void Setup();
 		static void SetAspectRatio(int _width, int _height);
+		static void SetCameraSpeed(float _speed);
+		static void ResetCameraSpeed();
+		static float GetCameraDefaultSpeed();
 		static void SetFov(float _fov);
 		static void MoveForward(float _deltaTime);
 		static void MoveBackward(float _deltaTime);
@@ -25,7 +28,8 @@ namespace Graphics {
 		static bool m_limitPitch;
 		static float m_maxPitch, m_minPitch;
 
-		static const float m_cameraSpeed;
+		static const float m_cameraDefaultSpeed;
+		static float m_cameraSpeed;
 		static const float m_cameraSensitivity;
 	};
 }

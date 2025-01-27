@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <vector>
 #include <string>
-
+#include <sstream>
 
 #include "GLFW/glfw3.h"
 
@@ -18,12 +18,19 @@
 #include "Utils/Color.h"
 #include "Utils/Structs.h"
 #include "Utils/FileSystem.h"
+
 #include "Resources/Models/BaseModel.h"
 #include "Resources/Models/OBJ.h"
-#include "Resources/Entitys/Shader.h"
+
+#include "Resources/Entitys/GL/Shader.h"
+#include "Resources/Entitys/GL/Program.h"
+
 #include "Resources/Entitys/GameObject.h"
 #include "Resources/GameObjectResources.h"
+
 #include "Resources/ShaderResources.h"
+
 #include "Graphics/Camera.h"
 #include "Graphics/Render.h"
+
 #include "Components/SceneManager.h"

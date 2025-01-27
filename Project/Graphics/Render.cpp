@@ -91,13 +91,10 @@ void Graphics::Render::MainLoop()
 {
 	auto _projection = Camera::GetProjection();
 	auto _cameraView = Camera::GetCameraView();
+	glm::mat4 model = glm::mat4(1.0f);  // Matrice identità
 
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
-
-	// Inizializza gli angoli di rotazione
-	float angleX = 0.0f; // Angolo di rotazione attorno all'asse X (su e giù)
-	float angleY = 0.0f; // Angolo di rotazione attorno all'asse Y (sinistra e destra)
 
 	while (!glfwWindowShouldClose(m_window)) {
 		double _currentFrameTime = glfwGetTime();
@@ -110,21 +107,6 @@ void Graphics::Render::MainLoop()
 		_lastFrameTime = _currentFrameTime;
 
 		MoveCamera();
-
-
-		// Incrementiamo gli angoli di rotazione
-		angleX += 0.5f;  // Angolo di rotazione attorno all'asse X
-		angleY += 1.0f;  // Angolo di rotazione attorno all'asse Y
-
-		// Creiamo le matrici di rotazione per X e Y
-		glm::mat4 model = glm::mat4(1.0f);  // Matrice identità
-
-		// Rotazione attorno all'asse X (su e giù)
-		model = glm::rotate(model, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));
-
-		// Rotazione attorno all'asse Y (sinistra e destra)
-		model = glm::rotate(model, glm::radians(angleY), glm::vec3(0.0f, 1.0f, 0.0f));
-
 
 		// Rendering
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -216,29 +198,30 @@ void Graphics::Render::CursorPositionCallback(GLFWwindow* window, double xpos, d
 
 void Graphics::Render::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (action == GLFW_RELEASE)
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
 	{
-		if (key == GLFW_KEY_ESCAPE)
+		auto _cursorMode = glfwGetInputMode(window, GLFW_CURSOR);
+		if (_cursorMode == GLFW_CURSOR_NORMAL)
 		{
-			auto _cursorMode = glfwGetInputMode(window, GLFW_CURSOR);
-			if (_cursorMode == GLFW_CURSOR_NORMAL)
-			{
-				glfwSetWindowShouldClose(window, GLFW_TRUE);
-			}
-			else if (_cursorMode == GLFW_CURSOR_DISABLED)
-			{
-				glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			}
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+		}
+		else if (_cursorMode == GLFW_CURSOR_DISABLED)
+		{
+			glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
 	}
-	else
+	else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
 	{
-		if (key == GLFW_KEY_1)
-			Camera::SetFov(Camera::GetFov() + 1.0f);
-
-		else if (key == GLFW_KEY_2)
-			Camera::SetFov(Camera::GetFov() - 1.0f);
+		Camera::SetCameraSpeed(Camera::GetCameraDefaultSpeed() * 2);
 	}
+	else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_RELEASE)
+	{
+		Camera::ResetCameraSpeed();
+	}
+	else if (key == GLFW_KEY_1)
+		Camera::SetFov(Camera::GetFov() + 1.0f);
+	else if (key == GLFW_KEY_2)
+		Camera::SetFov(Camera::GetFov() - 1.0f);
 	std::cout << "Key: " << key << " ScanCode: " << scancode << " Action: " << action << " Mods: " << mods << std::endl;
 }
 

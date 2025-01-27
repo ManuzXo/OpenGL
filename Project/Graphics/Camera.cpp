@@ -15,7 +15,9 @@ bool Graphics::Camera::m_limitPitch = true;
 float Graphics::Camera::m_maxPitch = 90.0f;
 float Graphics::Camera::m_minPitch = -90.0f;
 
-const float Graphics::Camera::m_cameraSpeed = 2.5f;
+const float Graphics::Camera::m_cameraDefaultSpeed = 2.5f;
+float Graphics::Camera::m_cameraSpeed = m_cameraDefaultSpeed;
+
 const float Graphics::Camera::m_cameraSensitivity = 0.1f;
 
 const glm::vec3 m_up = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -39,6 +41,21 @@ void Graphics::Camera::SetAspectRatio(int _width, int _height)
 {
 	m_aspectRatio = (float)_width / (float)_height;
 	Setup();
+}
+
+void Graphics::Camera::SetCameraSpeed(float _speed)
+{
+	m_cameraSpeed = _speed;
+}
+
+void Graphics::Camera::ResetCameraSpeed()
+{
+	m_cameraSpeed = m_cameraDefaultSpeed;
+}
+
+float Graphics::Camera::GetCameraDefaultSpeed()
+{
+	return m_cameraDefaultSpeed;
 }
 
 void Graphics::Camera::SetFov(float _fov)
