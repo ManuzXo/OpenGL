@@ -10,7 +10,7 @@ namespace Resources::Models {
 		std::vector<Utils::vertexData_t> GetVertexData();
 	private:
 		MTL *m_materialTemplateLibrary;
-		std::vector<Utils::vec3_t> m_vertices;
+		std::vector<glm::vec3> m_vertices;
 		std::vector<Utils::TextureCoord> m_textureCoords;
 		std::vector<Utils::Normal> m_normals;
 		std::vector<Utils::Face> m_faces;

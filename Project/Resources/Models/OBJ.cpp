@@ -23,7 +23,7 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 		_iss >> _prefix;
 
 		if (_prefix == "v") { // Vertici
-			Utils::vec3_t _vertex;
+			glm::vec3 _vertex;
 			_iss >> _vertex.x >> _vertex.y >> _vertex.z;
 			_model->m_vertices.push_back(_vertex);
 		}
