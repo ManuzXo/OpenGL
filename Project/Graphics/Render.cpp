@@ -56,6 +56,7 @@ bool Graphics::Render::Init()
 					std::cout << "Versione OpenGL: " << glGetString(GL_VERSION) << std::endl;
 
 					glEnable(GL_DEPTH_TEST);
+					//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 					Camera::SetAspectRatio(_mode->width, _mode->height);
 
