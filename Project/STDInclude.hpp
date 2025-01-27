@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <map>
 
 #include "GLFW/glfw3.h"
 
@@ -18,6 +19,8 @@
 #include "Utils/Color.h"
 #include "Utils/Structs.h"
 #include "Utils/FileSystem.h"
+
+#include "Resources/Models/MTL.h"
 
 #include "Resources/Models/BaseModel.h"
 #include "Resources/Models/OBJ.h"

@@ -1,5 +1,7 @@
 #include "../../STDInclude.hpp"
+Resources::Models::OBJ::OBJ() {
 
+}
 Resources::Models::OBJ::~OBJ()
 {
 	Clear();
@@ -13,7 +15,8 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 		return false;
 	}
 
-	std::string _line;
+	std::string _line, _materialName;
+
 	while (std::getline(_fileStream, _line)) {
 		std::istringstream _iss(_line);
 		std::string _prefix;
@@ -50,9 +53,30 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 				if (!_vn.empty()) _face.normalIndices.push_back(std::stoi(_vn) - 1);
 			}
 			_model->m_faces.push_back(_face);
+			if (!_materialName.empty()) {
+				_model->m_faces.back().materialName = _materialName;
+			}
+		}
+		else if (_prefix == "mtllib")
+		{
+			std::string _mtlName;
+			_iss >> _mtlName;
+			std::filesystem::path _objPath(_filePath);
+			std::filesystem::path _mtlPath = _objPath.parent_path() / _mtlName;
+			_model->m_materialTemplateLibrary = new MTL();
+			if (_model->m_materialTemplateLibrary->Load(_mtlPath.string())) {
+				std::cout << "Caricamento materiali fatto!" << std::endl;
+			}
+			else
+			{
+				std::cerr << "Errore nel caricare i materiali" << std::endl;
+			}
+		}
+		else if (_prefix == "usemtl")
+		{
+			_iss >> _materialName;
 		}
 	}
-
 	_fileStream.close();
 	return true;
 }
@@ -60,27 +84,33 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 std::vector<Utils::vertexData_t> Resources::Models::OBJ::GetVertexData()
 {
 	std::vector<Utils::vertexData_t> _data;
-	for (const auto& face : m_faces)
+	auto _map = m_materialTemplateLibrary->GetMaterialsColor();
+	for (const auto& _face : m_faces)
 	{
-		// Verifica che la faccia abbia almeno 3 vertici
-		if (face.vertexIndices.size() >= 3) {
+		Utils::Color _color(1.0f, 1.0f, 1.0f, 1.0f);
+		if (!_face.materialName.empty())
+		{
+			_color.SetRGBA(_map.at(_face.materialName));
+		}
+		
+		if (_face.vertexIndices.size() >= 3) {
 			// Triangola la faccia se è quadrata
-			for (size_t i = 0; i < face.vertexIndices.size() - 2; ++i) {
-				_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[0]],{1.0f,1.0f,1.0f,1.0f} });
-				_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[i + 1]],{1.0f,1.0f,1.0f,1.0f} });
-				_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[i + 2]],{1.0f,1.0f,1.0f,1.0f} });
+			for (size_t i = 0; i < _face.vertexIndices.size() - 2; ++i) {
+				_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]], _color });
+				_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[i + 1]],_color });
+				_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[i + 2]],_color });
 			}
 		}
 
 		// Se la faccia è quadrata, dividila in due triangoli
-		if (face.vertexIndices.size() == 4) {
-			_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[0]],{1.0f,1.0f,1.0f,1.0f} });
-			_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[1]],{1.0f,1.0f,1.0f,1.0f} });
-			_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[2]],{1.0f,1.0f,1.0f,1.0f} });
+		if (_face.vertexIndices.size() == 4) {
+			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]],_color });
+			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[1]],_color });
+			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[2]],_color });
 
-			_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[0]],{1.0f,1.0f,1.0f,1.0f} });
-			_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[2]],{1.0f,1.0f,1.0f,1.0f} });
-			_data.push_back(Utils::vertexData_t{ m_vertices[face.vertexIndices[3]],{1.0f,1.0f,1.0f,1.0f} });
+			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]],_color });
+			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[2]],_color });
+			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[3]],_color });
 		}
 	}
 	return _data;
@@ -94,4 +124,5 @@ void Resources::Models::OBJ::Clear()
 	m_textureCoords.clear();
 	m_normals.clear();
 	m_faces.clear();
+	delete m_materialTemplateLibrary;
 }

@@ -54,6 +54,9 @@
     <ClCompile Include="Resources\Entitys\GL\Program.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Resources\Models\MTL.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\ShaderResources.h">
@@ -99,6 +102,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Resources\Entitys\GL\Program.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Models\MTL.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

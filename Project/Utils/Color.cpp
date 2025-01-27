@@ -1,14 +1,10 @@
 #include "Color.h"
 
-Utils::Color::Color(float _r, float _g, float _b, float _a)
+Utils::Color::Color()
 {
-	this->r = _r;
-	this->g = _g;
-	this->b = _b;
-	this->a = _a;
 }
 
-void Utils::Color::SetRGBA(float _r, float _g, float _b, float _a)
+Utils::Color::Color(float _r, float _g, float _b, float _a)
 {
 	this->r = _r;
 	this->g = _g;

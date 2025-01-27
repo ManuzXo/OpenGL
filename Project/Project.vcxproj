@@ -191,6 +191,7 @@
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
     <ClCompile Include="Resources\Entitys\GL\Program.cpp" />
+    <ClCompile Include="Resources\Models\MTL.cpp" />
     <ClCompile Include="Resources\Models\OBJ.cpp" />
     <ClCompile Include="Resources\Entitys\GL\Shader.cpp" />
     <ClCompile Include="Resources\GameObjectResources.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\GL\Program.h" />
     <ClInclude Include="Resources\Models\BaseModel.h" />
+    <ClInclude Include="Resources\Models\MTL.h" />
     <ClInclude Include="Resources\Models\OBJ.h" />
     <ClInclude Include="Resources\Model\OBJ.h" />
     <ClInclude Include="Resources\Entitys\GL\Shader.h" />

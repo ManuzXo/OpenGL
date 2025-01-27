@@ -3,7 +3,7 @@
 
 glm::mat4 Graphics::Camera::m_projection;
 glm::mat4 Graphics::Camera::m_cameraView;
-glm::vec3 Graphics::Camera::m_cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 Graphics::Camera::m_cameraPosition = glm::vec3(0.0f, 0.0f, 7.0f);
 glm::vec3 Graphics::Camera::m_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 
 float Graphics::Camera::m_aspectRatio = (float)800 / (float)600;
