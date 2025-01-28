@@ -3,5 +3,7 @@ namespace Graphics {
 	class Render{
 	public:
 		static void Draw();
+		static void Clear();
+		static void BindProgram();
 	};
 }

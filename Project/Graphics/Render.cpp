@@ -8,11 +8,6 @@ void Graphics::Render::Draw()
 
 	static auto * _gameObjects = &Resources::GameObjectResources::m_gameObjects;
 	static auto _program = Resources::ShaderResources::GetProgram();
-	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//Use Program
-	glUseProgram(_program);
 
 	// Ottieni le posizioni degli uniformi "model", "view" e "projection"
 	static auto _modelLocation = glGetUniformLocation(_program, "model");
@@ -29,5 +24,16 @@ void Graphics::Render::Draw()
 		glBindVertexArray(_gObj->GetVertexArray());
 		glDrawArrays(GL_TRIANGLES, 0, _gObj->GetVertexSize());
 	}
+}
+
+void Graphics::Render::Clear()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Graphics::Render::BindProgram()
+{
+	//Use Program
+	glUseProgram(Resources::ShaderResources::GetProgram());
 }
 

@@ -6,7 +6,8 @@ float Graphics::Window::m_fps = 60.0;
 int Graphics::Window::m_widthMonitor;
 int Graphics::Window::m_heightMonitor;
 double Graphics::Window::m_deltaTime;
-bool Graphics::Window::m_focus = true;
+bool Graphics::Window::m_windowFocus = true;
+bool Graphics::Window::m_isPlaying = false;
 bool Graphics::Window::Init()
 {
 	std::cout << "##### Render Init #####" << std::endl;
@@ -109,20 +110,24 @@ void Graphics::Window::MainLoop()
 			glfwWaitEventsTimeout(_frameDuration - m_deltaTime);
 			continue;
 		}
+		_lastFrameTime = _currentFrameTime;
 
 		// Gestione degli eventi
 		glfwPollEvents();
 
-		if (!m_focus)
-			continue;
+		Render::Clear();
+		if (m_windowFocus)
+		{
+			Render::BindProgram();
 
-		_lastFrameTime = _currentFrameTime;
+			if (m_isPlaying)
+				MoveCamera();
 
-		MoveCamera();
+			Render::Draw();
 
-		Render::Draw();
-		DearImGui::Manager::Draw();
-
+			if (!m_isPlaying)
+				DearImGui::Manager::Draw();
+		}
 		// Swap dei buffer
 		glfwSwapBuffers(m_window);
 	}
@@ -136,6 +141,7 @@ void Graphics::Window::Destroy()
 		glfwDestroyWindow(m_window);
 	if (m_monitor != NULL)
 		free(m_monitor);
+	DearImGui::Manager::Destroy();
 	//SE NON COMMENTATO ALLA CHIUSURA DELL'APP FA "Gamma ramp size must be 256"
 	//glfwTerminate();
 }
@@ -159,13 +165,15 @@ void Graphics::Window::MoveCamera()
 
 void Graphics::Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	}
+	if (!m_windowFocus)
+		return;
 }
 
 void Graphics::Window::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
 {
+	if (!m_windowFocus || !m_isPlaying)
+		return;
+
 	static float _lastXPos = m_widthMonitor / 2;
 	static float _lastYPos = m_heightMonitor / 2;
 	static bool _firstMouse = true;
@@ -186,17 +194,15 @@ void Graphics::Window::CursorPositionCallback(GLFWwindow* window, double xpos, d
 
 void Graphics::Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+	if (!m_windowFocus)
+		return;
+
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
 	{
-		auto _cursorMode = glfwGetInputMode(window, GLFW_CURSOR);
-		if (_cursorMode == GLFW_CURSOR_NORMAL)
-		{
+		if (m_isPlaying)
+			SetPlayState(false);
+		else
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
-		}
-		else if (_cursorMode == GLFW_CURSOR_DISABLED)
-		{
-			glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		}
 	}
 	else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
 	{
@@ -229,5 +235,18 @@ void Graphics::Window::FrameBufferSizeCallback(GLFWwindow* window, int width, in
 
 void Graphics::Window::FocusCallback(GLFWwindow* window, int focused)
 {
-	m_focus = (bool)focused;
+	m_windowFocus = (bool)focused;
+}
+
+void Graphics::Window::SetPlayState(bool _value)
+{
+	if (_value)
+	{
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else
+	{
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+	m_isPlaying = _value;
 }
