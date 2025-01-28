@@ -7,7 +7,7 @@ Resources::Models::OBJ::~OBJ()
 	Clear();
 }
 
-bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
+bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vector<Entitys::GameObject*> * _gameObjects)
 {
 	std::ifstream _fileStream(_filePath);
 	if (!_fileStream.is_open()) {
@@ -16,7 +16,9 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 	}
 
 	std::string _line, _materialName;
-
+	
+	Entitys::GameObject* _currentGameObject = NULL;
+	
 	while (std::getline(_fileStream, _line)) {
 		std::istringstream _iss(_line);
 		std::string _prefix;
@@ -49,15 +51,23 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 				std::getline(_vertexStream, _vn, '/');
 
 				_face.vertexIndices.push_back(std::stoi(_v) - 1); // Gli indici .obj partono da 1
-				if (!_vt.empty()) _face.textureIndices.push_back(std::stoi(_vt) - 1);
-				if (!_vn.empty()) _face.normalIndices.push_back(std::stoi(_vn) - 1);
+				
+				if (!_vt.empty())
+					_face.textureIndices.push_back(std::stoi(_vt) - 1);
+				if (!_vn.empty())
+					_face.normalIndices.push_back(std::stoi(_vn) - 1);
 			}
 			_model->m_faces.push_back(_face);
+			
 			if (!_materialName.empty()) {
 				_model->m_faces.back().materialName = _materialName;
 			}
+
+			if (_currentGameObject != NULL){
+				_model->m_faces.back().refGameObject = (int*)_currentGameObject;
+			}
 		}
-		else if (_prefix == "mtllib")
+		else if (_prefix == "mtllib") //creazione MTL
 		{
 			std::string _mtlName;
 			_iss >> _mtlName;
@@ -72,21 +82,28 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model)
 				std::cerr << "Errore nel caricare i materiali" << std::endl;
 			}
 		}
-		else if (_prefix == "usemtl")
+		else if (_prefix == "usemtl") //material da usare
 		{
 			_iss >> _materialName;
+		}
+		else if (_prefix == "o") //Nome Oggetto
+		{
+			std::string _nameObject;
+			_iss >> _nameObject;
+			_currentGameObject = new Entitys::GameObject(_nameObject);
+			_gameObjects->push_back(_currentGameObject);
 		}
 	}
 	_fileStream.close();
 	return true;
 }
 
-std::vector<Utils::vertexData_t> Resources::Models::OBJ::GetVertexData()
+void Resources::Models::OBJ::AssignVertexDataGameObjects()
 {
-	std::vector<Utils::vertexData_t> _data;
 	auto _map = m_materialTemplateLibrary->GetMaterialsColor();
 	for (const auto& _face : m_faces)
 	{
+		auto _gameObject = (Entitys::GameObject*)_face.refGameObject;
 		Utils::Color _color(1.0f, 1.0f, 1.0f, 1.0f);
 		if (!_face.materialName.empty())
 		{
@@ -96,24 +113,23 @@ std::vector<Utils::vertexData_t> Resources::Models::OBJ::GetVertexData()
 		if (_face.vertexIndices.size() >= 3) {
 			// Triangola la faccia se è quadrata
 			for (size_t i = 0; i < _face.vertexIndices.size() - 2; ++i) {
-				_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]], _color });
-				_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[i + 1]],_color });
-				_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[i + 2]],_color });
+				_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]], _color });
+				_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[i + 1]],_color });
+				_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[i + 2]],_color });
 			}
 		}
 
 		// Se la faccia è quadrata, dividila in due triangoli
 		if (_face.vertexIndices.size() == 4) {
-			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]],_color });
-			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[1]],_color });
-			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[2]],_color });
+			_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]],_color });
+			_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[1]],_color });
+			_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[2]],_color });
 
-			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]],_color });
-			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[2]],_color });
-			_data.push_back(Utils::vertexData_t{ m_vertices[_face.vertexIndices[3]],_color });
+			_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[0]],_color });
+			_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[2]],_color });
+			_gameObject->AddData(Utils::vertexData_t{ m_vertices[_face.vertexIndices[3]],_color });
 		}
 	}
-	return _data;
 }
 
 

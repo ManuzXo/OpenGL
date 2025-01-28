@@ -2,6 +2,13 @@
 
 Resources::Entitys::GameObject::GameObject()
 {
+	m_modelMatrix = glm::mat4(1.0f);
+}
+
+Resources::Entitys::GameObject::GameObject(const std::string& _name)
+{
+	m_Name = _name;
+	m_modelMatrix = glm::mat4(1.0f);
 }
 
 Resources::Entitys::GameObject::~GameObject()
@@ -18,6 +25,7 @@ Resources::Entitys::GameObject::~GameObject()
 
 	m_vertexData.clear();
 }
+
 
 void Resources::Entitys::GameObject::AddData(Utils::vertexData_t _data)
 {
@@ -63,6 +71,7 @@ GLuint Resources::Entitys::GameObject::GetVertexBuffer()
 
 bool Resources::Entitys::GameObject::BuildVertex()
 {
+
 	if (m_vertexData.empty())
 		return false;
 
@@ -97,4 +106,13 @@ bool Resources::Entitys::GameObject::BuildVertex()
 	return true;
 }
 
+const std::string& Resources::Entitys::GameObject::GetName()
+{
+	return m_Name;
+}
+
+const glm::mat4& Resources::Entitys::GameObject::GetModelMatrix()
+{
+	return m_modelMatrix;
+}
 
