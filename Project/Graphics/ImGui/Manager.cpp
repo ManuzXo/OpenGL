@@ -17,7 +17,6 @@ bool Graphics::DearImGui::Manager::Init(GLFWwindow* _window, const char* _glslVe
 	ImGui_ImplOpenGL3_Init(_glslVersion);
 	return true;
 }
-
 void Graphics::DearImGui::Manager::Draw()
 {
 	// Start the Dear ImGui frame
@@ -30,7 +29,9 @@ void Graphics::DearImGui::Manager::Draw()
 	if (ImGui::Button("Play")) {
 		Window::SetPlayState(true);
 	}
-
+	if (ImGui::Checkbox("Polygon Mode", &Render::m_isPoly))
+	{
+	}
 	ImGui::End();
 
 	// Render ImGui to the screen

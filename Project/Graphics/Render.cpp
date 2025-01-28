@@ -1,7 +1,12 @@
 #include "../STDInclude.hpp"
 
+bool Graphics::Render::m_isPoly = false;
 void Graphics::Render::Draw()
 {
+	if (m_isPoly)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	static auto _projection = Camera::GetProjection();
 	static auto _cameraView = Camera::GetCameraView();
 	static glm::mat4 model = glm::mat4(1.0f);  // Matrice identità
@@ -36,4 +41,5 @@ void Graphics::Render::BindProgram()
 	//Use Program
 	glUseProgram(Resources::ShaderResources::GetProgram());
 }
+
 
