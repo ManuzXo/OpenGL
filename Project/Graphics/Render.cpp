@@ -9,8 +9,6 @@ void Graphics::Render::Draw()
 	static auto * _gameObjects = &Resources::GameObjectResources::m_gameObjects;
 	static auto _program = Resources::ShaderResources::GetProgram();
 	
-
-	// Rendering
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Use Program
@@ -32,3 +30,4 @@ void Graphics::Render::Draw()
 		glDrawArrays(GL_TRIANGLES, 0, _gObj->GetVertexSize());
 	}
 }
+

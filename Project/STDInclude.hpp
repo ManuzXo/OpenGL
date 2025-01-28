@@ -12,6 +12,11 @@
 
 #include "GLFW/glfw3.h"
 
+//IMGUI
+#include "Graphics/ImGui/imgui.h"
+#include "Graphics/ImGui/imgui_impl_glfw.h"
+#include "Graphics/ImGui/imgui_impl_opengl3.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -35,6 +40,7 @@
 
 #include "Graphics/Camera.h"
 #include "Graphics/Render.h"
+#include "Graphics/ImGui/Manager.h"
 #include "Graphics/Window.h"
 
 #include "Components/SceneManager.h"

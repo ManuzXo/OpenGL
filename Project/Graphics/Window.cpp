@@ -56,6 +56,9 @@ bool Graphics::Window::Init()
 					std::cout << "Creazione del callback per il focus window" << std::endl;
 					glfwSetWindowFocusCallback(m_window, FocusCallback);
 
+					std::cout << "ImGui Init" << std::endl;
+					DearImGui::Manager::Init(m_window, "#version 330 core");
+
 					std::cout << "Versione OpenGL: " << glGetString(GL_VERSION) << std::endl;
 
 					glEnable(GL_DEPTH_TEST);
@@ -118,6 +121,7 @@ void Graphics::Window::MainLoop()
 		MoveCamera();
 
 		Render::Draw();
+		DearImGui::Manager::Draw();
 
 		// Swap dei buffer
 		glfwSwapBuffers(m_window);
