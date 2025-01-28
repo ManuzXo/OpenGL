@@ -35,5 +35,6 @@
 
 #include "Graphics/Camera.h"
 #include "Graphics/Render.h"
+#include "Graphics/Window.h"
 
 #include "Components/SceneManager.h"

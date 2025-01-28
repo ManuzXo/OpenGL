@@ -188,6 +188,7 @@
     <ClCompile Include="Components\SceneManager.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\Render.cpp" />
+    <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
     <ClCompile Include="Resources\Entitys\GL\Program.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Components\SceneManager.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\Render.h" />
+    <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\GL\Program.h" />
     <ClInclude Include="Resources\Models\BaseModel.h" />
@@ -219,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\models\cube-monkey.mtl" />
+    <None Include="Assets\models\test.mtl" />
     <None Include="Assets\shaders\shader1" />
     <None Include="shaders\Fragment Shader.frag">
       <FileType>Document</FileType>
@@ -229,6 +232,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\models\cube-monkey.obj">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\models\test.obj">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

@@ -57,6 +57,9 @@
     <ClCompile Include="Resources\Models\MTL.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\Window.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\ShaderResources.h">
@@ -107,6 +110,9 @@
     <ClInclude Include="Resources\Models\MTL.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Window.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\VertexShader.vert">
@@ -118,5 +124,7 @@
     <None Include="Assets\shaders\shader1" />
     <None Include="Assets\models\cube-monkey.mtl" />
     <None Include="Assets\models\cube-monkey.obj" />
+    <None Include="Assets\models\test.mtl" />
+    <None Include="Assets\models\test.obj" />
   </ItemGroup>
 </Project>
