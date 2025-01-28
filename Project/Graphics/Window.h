@@ -21,10 +21,12 @@ namespace Graphics {
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void ErrorCallBack(int error_code, const char* description);
 		static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
+		static void FocusCallback(GLFWwindow* window, int focused);
 		static GLFWwindow* m_window;
 		static GLFWmonitor* m_monitor;
 		static float m_fps;
 		static int m_widthMonitor, m_heightMonitor;
 		static double m_deltaTime;
+		static bool m_focus;
 	};
 }

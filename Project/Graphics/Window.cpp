@@ -6,7 +6,7 @@ float Graphics::Window::m_fps = 60.0;
 int Graphics::Window::m_widthMonitor;
 int Graphics::Window::m_heightMonitor;
 double Graphics::Window::m_deltaTime;
-
+bool Graphics::Window::m_focus = true;
 bool Graphics::Window::Init()
 {
 	std::cout << "##### Render Init #####" << std::endl;
@@ -53,6 +53,9 @@ bool Graphics::Window::Init()
 					glfwSetMouseButtonCallback(m_window, MouseButtonCallback);
 					glfwSetCursorPosCallback(m_window, CursorPositionCallback);
 
+					std::cout << "Creazione del callback per il focus window" << std::endl;
+					glfwSetWindowFocusCallback(m_window, FocusCallback);
+
 					std::cout << "Versione OpenGL: " << glGetString(GL_VERSION) << std::endl;
 
 					glEnable(GL_DEPTH_TEST);
@@ -94,6 +97,9 @@ void Graphics::Window::MainLoop()
 	double _lastFrameTime = glfwGetTime();
 
 	while (!glfwWindowShouldClose(m_window)) {
+
+		//SE NON IN FOCUS NON RENDERIZZARE
+
 		double _currentFrameTime = glfwGetTime();
 		m_deltaTime = _currentFrameTime - _lastFrameTime;
 		if (m_deltaTime < _frameDuration) {
@@ -101,17 +107,20 @@ void Graphics::Window::MainLoop()
 			continue;
 		}
 
+		// Gestione degli eventi
+		glfwPollEvents();
+
+		if (!m_focus)
+			continue;
+
 		_lastFrameTime = _currentFrameTime;
 
 		MoveCamera();
-		
+
 		Render::Draw();
 
 		// Swap dei buffer
 		glfwSwapBuffers(m_window);
-
-		// Gestione degli eventi
-		glfwPollEvents();
 	}
 }
 
@@ -212,4 +221,9 @@ void Graphics::Window::FrameBufferSizeCallback(GLFWwindow* window, int width, in
 	// Imposta il viewport in base alle nuove dimensioni della finestra
 	glViewport(0, 0, width, height);
 	Camera::SetAspectRatio(width, height);
+}
+
+void Graphics::Window::FocusCallback(GLFWwindow* window, int focused)
+{
+	m_focus = (bool)focused;
 }

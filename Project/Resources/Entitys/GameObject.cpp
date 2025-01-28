@@ -91,6 +91,7 @@ bool Resources::Entitys::GameObject::BuildVertex()
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Utils::vertexData_t), (void*)(3 * sizeof(float))); //COLORE
 	glEnableVertexAttribArray(1);
 
+	//UNBINDING VBO E VAO
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	return true;
