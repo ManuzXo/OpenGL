@@ -26,3 +26,8 @@ float* Utils::Color::GetRGBA()
 	float _rgba[4] = { this->r, this->g, this->b, this->a };
 	return _rgba;
 }
+
+bool Utils::Color::operator==(const Color& other) const
+{
+	return r == other.r && g == other.g && b == other.b && a == other.a;
+}

@@ -9,5 +9,4 @@ int main()
 		std::cerr << ex.what() << std::endl;
 	}
 	Components::SceneManager::Destroy();
-	system("pause");
 }

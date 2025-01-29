@@ -30,11 +30,28 @@ void Graphics::DearImGui::Manager::Draw()
 		Window::SetPlayState(true);
 	}
 	ImGui::Checkbox("Polygon Mode", &Render::m_isPoly);
+
 	static auto* _gameObjects = &Resources::GameObjectResources::m_gameObjects;
-	for(auto _gObj : *_gameObjects)
+
+	ImGui::Separator();
+	ImGui::Text("Game Objects");
+	ImGui::Separator();
+
+	for (auto _gObj : *_gameObjects)
 	{
-		ImGui::Text(_gObj->GetName().c_str());
+		ImGui::Text("Name: %s", _gObj->GetName().c_str());
+
+		if (_gObj->m_vertexData) {
+			ImGui::Text("Vertices: %d", _gObj->m_vertexData->GetVertexSize());
+			ImGui::Text("Indices: %d", _gObj->m_vertexData->GetIndicesSize());
+		}
+		else {
+			ImGui::Text("No vertex data");
+		}
+
+		ImGui::Separator(); // Separatore per leggibilità
 	}
+
 
 	ImGui::End();
 

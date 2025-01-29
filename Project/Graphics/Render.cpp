@@ -10,7 +10,7 @@ void Graphics::Render::Draw()
 	static auto _projection = Camera::GetProjection();
 	static auto _cameraView = Camera::GetCameraView();
 
-	static auto * _gameObjects = &Resources::GameObjectResources::m_gameObjects;
+	static auto* _gameObjects = &Resources::GameObjectResources::m_gameObjects;
 	static auto _program = Resources::ShaderResources::GetProgram();
 
 	static auto _mvpLocation = glGetUniformLocation(_program, "u_mvp");
@@ -19,8 +19,21 @@ void Graphics::Render::Draw()
 	{
 		glm::mat4 _calcMVP = (*_projection) * (*_cameraView) * _gObj->GetModelMatrix();
 		glUniformMatrix4fv(_mvpLocation, 1, GL_FALSE, glm::value_ptr(_calcMVP));
-		glBindVertexArray(_gObj->GetVertexArray());
-		glDrawArrays(GL_TRIANGLES, 0, _gObj->GetVertexSize());
+
+		auto _vertexRef = _gObj->m_vertexData;
+		auto _indicesSize = _vertexRef->GetIndicesSize();
+		if (_indicesSize > 0) //USE INDICES
+		{
+			glBindVertexArray(_vertexRef->GetVertexArray());
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vertexRef->GetIndexBuffer());
+			glDrawElements(GL_TRIANGLES, _indicesSize, GL_UNSIGNED_INT, 0);
+		}
+		else //USE ALL VERTEX
+		{
+			glBindVertexArray(_vertexRef->GetVertexArray());
+			glDrawArrays(GL_TRIANGLES, 0, _vertexRef->GetVertexSize());
+		}
+		glBindVertexArray(0);
 	}
 }
 

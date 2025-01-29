@@ -27,4 +27,5 @@ namespace Utils {
 		/// </summary>
 		int* refGameObject;
 	};
+
 }

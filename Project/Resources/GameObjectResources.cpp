@@ -91,7 +91,7 @@ void Resources::GameObjectResources::FileModelManager(const std::filesystem::dir
 			_objData.AssignVertexDataGameObjects();
 			for (auto _gObj : _gameObjects)
 			{
-				if (_gObj->BuildVertex())
+				if (_gObj->m_vertexData->BuildVertex())
 				{
 					std::cout << "Compilazione vertex Data per " << _gObj->GetName() << "!" << std::endl;
 					m_gameObjects.push_back(_gObj);
