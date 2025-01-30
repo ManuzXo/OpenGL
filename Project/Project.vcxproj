@@ -202,6 +202,7 @@
     <ClCompile Include="Graphics\Render.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="Resources\Batching.cpp" />
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
     <ClCompile Include="Resources\Entitys\GL\Program.cpp" />
     <ClCompile Include="Resources\Entitys\GL\VertexBuffer.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Graphics\ImGui\Manager.h" />
     <ClInclude Include="Graphics\Render.h" />
     <ClInclude Include="Graphics\Window.h" />
+    <ClInclude Include="Resources\Batching.h" />
     <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\GL\Program.h" />
     <ClInclude Include="Resources\Entitys\GL\VertexBuffer.h" />

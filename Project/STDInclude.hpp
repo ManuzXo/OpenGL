@@ -43,6 +43,7 @@
 #include "Resources/Models/BaseModel.h"
 #include "Resources/Models/OBJ.h"
 
+#include "Resources/Batching.h"
 #include "Resources/GameObjectResources.h"
 
 #include "Resources/ShaderResources.h"

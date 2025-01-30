@@ -99,7 +99,6 @@ void Graphics::Window::MainLoop()
 {
 	const double _frameDuration = 1.0 / m_fps; // Durata di un frame a 60 FPS
 	double _lastFrameTime = glfwGetTime();
-
 	while (!glfwWindowShouldClose(m_window)) {
 
 		//SE NON IN FOCUS NON RENDERIZZARE
@@ -121,12 +120,20 @@ void Graphics::Window::MainLoop()
 			Render::BindProgram();
 
 			if (m_isPlaying)
+			{
 				MoveCamera();
-
+			}
 			Render::Draw();
-
+			
+			DearImGui::Manager::NewFrame();
+			
 			if (!m_isPlaying)
-				DearImGui::Manager::Draw();
+			{
+				DearImGui::Manager::SetupUtils();
+			}
+			
+			DearImGui::Manager::SetupInfoText();
+			DearImGui::Manager::Draw();
 		}
 		// Swap dei buffer
 		glfwSwapBuffers(m_window);
@@ -216,7 +223,7 @@ void Graphics::Window::KeyCallback(GLFWwindow* window, int key, int scancode, in
 		Camera::SetFov(Camera::GetFov() + 1.0f);
 	else if (key == GLFW_KEY_2)
 		Camera::SetFov(Camera::GetFov() - 1.0f);
-	std::cout << "Key: " << key << " ScanCode: " << scancode << " Action: " << action << " Mods: " << mods << std::endl;
+	//std::cout << "Key: " << key << " ScanCode: " << scancode << " Action: " << action << " Mods: " << mods << std::endl;
 }
 
 void Graphics::Window::ErrorCallBack(int error_code, const char* description)

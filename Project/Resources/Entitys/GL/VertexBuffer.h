@@ -12,12 +12,19 @@ namespace Resources::Entitys::GL {
 		};
 		VertexBuffer();
 		~VertexBuffer();
+
 		void AddData(data_t _data);
-		
+
 		void AddIndex(unsigned int _index);
 
 		void CopyData(std::vector<data_t> _data);
+
 		void CopyData(data_t* _data, size_t _size);
+		
+		void InsertData(std::vector<data_t> & _vector);
+
+		data_t* GetVertexData();
+		std::vector<data_t> & GetVertexRef();
 
 		int GetVertexSize();
 		int GetIndicesSize();
@@ -30,6 +37,9 @@ namespace Resources::Entitys::GL {
 		GLuint GetVertexBuffer();
 
 		bool BuildVertex();
+
+		void Bind();
+		void UnBind();
 	private:
 		/// <summary>
 		/// IBO

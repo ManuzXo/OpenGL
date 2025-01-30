@@ -87,6 +87,9 @@
     <ClCompile Include="Resources\Entitys\GL\VertexBuffer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Resources\Batching.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\ShaderResources.h">
@@ -171,6 +174,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Resources\Entitys\GL\VertexBuffer.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Batching.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -56,6 +56,21 @@ void Resources::Entitys::GL::VertexBuffer::CopyData(data_t* _data, size_t _size)
 	}
 }
 
+void Resources::Entitys::GL::VertexBuffer::InsertData(std::vector<data_t>& _vector)
+{
+	m_vertexData.insert(m_vertexData.end(), _vector.begin(), _vector.end());
+}
+
+Resources::Entitys::GL::VertexBuffer::data_t* Resources::Entitys::GL::VertexBuffer::GetVertexData()
+{
+	return m_vertexData.data();
+}
+
+std::vector<Resources::Entitys::GL::VertexBuffer::data_t>& Resources::Entitys::GL::VertexBuffer::GetVertexRef()
+{
+	return m_vertexData;
+}
+
 int Resources::Entitys::GL::VertexBuffer::GetVertexSize()
 {
 	return m_vertexData.size();
@@ -134,6 +149,26 @@ bool Resources::Entitys::GL::VertexBuffer::BuildVertex()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	return true;
+}
+
+void Resources::Entitys::GL::VertexBuffer::Bind()
+{
+	auto _indicesSize = GetIndicesSize();
+	glBindVertexArray(GetVertexArray());
+	if (_indicesSize > 0) //USE INDICES
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GetIndexBuffer());
+		glDrawElements(GL_TRIANGLES, _indicesSize, GL_UNSIGNED_INT, 0);
+	}
+	else //USE ALL VERTEX
+	{
+		glDrawArrays(GL_TRIANGLES, 0, GetVertexSize());
+	}
+}
+
+void Resources::Entitys::GL::VertexBuffer::UnBind()
+{
+	glBindVertexArray(0);
 }
 
 size_t Resources::Entitys::GL::VertexBuffer::HashFunction_t::operator()(const std::pair<glm::vec3, Utils::Color>& pair) const

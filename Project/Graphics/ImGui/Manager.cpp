@@ -17,21 +17,47 @@ bool Graphics::DearImGui::Manager::Init(GLFWwindow* _window, const char* _glslVe
 	ImGui_ImplOpenGL3_Init(_glslVersion);
 	return true;
 }
-void Graphics::DearImGui::Manager::Draw()
+void Graphics::DearImGui::Manager::NewFrame()
 {
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-
+}
+void Graphics::DearImGui::Manager::SetupUtils()
+{
 	ImGui::Begin("Utils");
 
 	if (ImGui::Button("Play")) {
 		Window::SetPlayState(true);
 	}
 	ImGui::Checkbox("Polygon Mode", &Render::m_wireFrame);
-
 	static auto* _gameObjects = &Resources::GameObjectResources::m_gameObjects;
+
+	if (ImGui::Checkbox("Batch", &Resources::Batching::m_useBatch))
+	{
+		if (Resources::Batching::m_useBatch)
+		{
+			//PULISCO I SINGOLI OGGETTI 
+			Resources::GameObjectResources::ClearGameObjects();
+			//RINIZIALIZZO SENZA COMPILARLI ESSENDO CHE USEBATCH è A TRUE
+			Resources::GameObjectResources::Init();
+			//INIZIALIZZO BATCH
+			Resources::Batching::Init(*_gameObjects);
+		}
+		else
+		{
+			//PULISCO BATCH
+			Resources::Batching::ClearBatch();
+			//PULISCO GLI OGGETTI
+			Resources::GameObjectResources::ClearGameObjects();
+
+			//RINIZILIZZO OGNI SINGOLO OGGETTO COMPILANDOLO
+			Resources::GameObjectResources::Init();
+			Resources::GameObjectResources::CompileObjects();
+		}
+	}
+
 	ImGui::Separator();
 	ImGui::Text("Game Objects");
 	ImGui::Separator();
@@ -50,11 +76,16 @@ void Graphics::DearImGui::Manager::Draw()
 
 		ImGui::Separator(); // Separatore per leggibilità
 	}
-
-
 	ImGui::End();
-
-	// Render ImGui to the screen
+}
+void Graphics::DearImGui::Manager::SetupInfoText()
+{
+	ImGui::Begin("Info");
+	ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+	ImGui::End();
+}
+void Graphics::DearImGui::Manager::Draw()
+{
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

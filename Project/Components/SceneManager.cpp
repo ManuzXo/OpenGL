@@ -7,6 +7,11 @@ void Components::SceneManager::Init()
 	{
 		if (Resources::ShaderResources::Init() && Resources::GameObjectResources::Init())
 		{
+			if (Resources::Batching::m_useBatch)
+				Resources::Batching::Init(Resources::GameObjectResources::m_gameObjects);
+			else
+				Resources::GameObjectResources::CompileObjects();
+
 			Graphics::Window::MainLoop();
 		}
 	}

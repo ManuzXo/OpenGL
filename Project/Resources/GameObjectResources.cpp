@@ -83,25 +83,26 @@ void Resources::GameObjectResources::FileModelManager(const std::filesystem::dir
 	if (!_extension.compare(".obj"))
 	{
 		Models::OBJ _objData;
-		std::vector<Entitys::GameObject*> _gameObjects;
 
-		if (Models::OBJ::Load(_fullPath.string(), &_objData, &_gameObjects))
+		if (Models::OBJ::Load(_fullPath.string(), &_objData, &m_gameObjects))
 		{
 			std::cout << "Il file .obj è stato letto" << std::endl;
 			_objData.AssignVertexDataGameObjects();
-			for (auto _gObj : _gameObjects)
-			{
-				if (_gObj->m_vertexData->BuildVertex())
-				{
-					std::cout << "Compilazione vertex Data per " << _gObj->GetName() << "!" << std::endl;
-					m_gameObjects.push_back(_gObj);
-				}
-				else
-				{
-					std::cerr << "Errore nella compilazione vertex Data per " << _gObj->GetName() << std::endl;
-				}
-			}
-			_gameObjects.clear();
+		}
+	}
+}
+
+void Resources::GameObjectResources::CompileObjects()
+{
+	for (auto _gObj : m_gameObjects)
+	{
+		if (_gObj->m_vertexData->BuildVertex())
+		{
+			std::cout << "Compilazione vertex Data per " << _gObj->GetName() << "!" << std::endl;
+		}
+		else
+		{
+			std::cerr << "Errore nella compilazione vertex Data per " << _gObj->GetName() << std::endl;
 		}
 	}
 }
@@ -109,9 +110,18 @@ void Resources::GameObjectResources::FileModelManager(const std::filesystem::dir
 void Resources::GameObjectResources::Destroy()
 {
 	std::cout << "##### GameObjectResources Destroy #####" << std::endl;
+	
+	if (Batching::m_useBatch)
+		Batching::ClearBatch();
+	else
+		ClearGameObjects();
+}
 
+void Resources::GameObjectResources::ClearGameObjects()
+{
 	for (auto _gobj : m_gameObjects)
 	{
 		delete _gobj;
 	}
+	m_gameObjects.clear();
 }
