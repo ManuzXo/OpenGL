@@ -29,10 +29,9 @@ void Graphics::DearImGui::Manager::Draw()
 	if (ImGui::Button("Play")) {
 		Window::SetPlayState(true);
 	}
-	ImGui::Checkbox("Polygon Mode", &Render::m_isPoly);
+	ImGui::Checkbox("Polygon Mode", &Render::m_wireFrame);
 
 	static auto* _gameObjects = &Resources::GameObjectResources::m_gameObjects;
-
 	ImGui::Separator();
 	ImGui::Text("Game Objects");
 	ImGui::Separator();

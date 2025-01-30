@@ -5,6 +5,6 @@ namespace Graphics {
 		static void Draw();
 		static void Clear();
 		static void BindProgram();
-		static bool m_isPoly;
+		static bool m_wireFrame;
 	};
 }

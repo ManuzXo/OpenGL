@@ -1,9 +1,9 @@
 #include "../STDInclude.hpp"
 
-bool Graphics::Render::m_isPoly = false;
+bool Graphics::Render::m_wireFrame = false;
 void Graphics::Render::Draw()
 {
-	if (m_isPoly)
+	if (m_wireFrame)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
