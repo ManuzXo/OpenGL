@@ -1,6 +1,6 @@
 #include "../STDInclude.hpp"
 
-bool Resources::Batching::m_useBatch = true;
+bool Resources::Batching::m_useBatch = false;
 Resources::Entitys::GL::VertexBuffer* Resources::Batching::m_vertexBatch;
 
 void Resources::Batching::Init(std::vector<Resources::Entitys::GameObject*>& _gameObjects)

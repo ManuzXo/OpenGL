@@ -73,7 +73,8 @@ void Graphics::DearImGui::Manager::SetupUtils()
 		else {
 			ImGui::Text("No vertex data");
 		}
-
+		auto _pos = _gObj->GetPosition();
+		ImGui::SliderFloat3("Position", &_pos.x, -10.0f, 10.0f);
 		ImGui::Separator(); // Separatore per leggibilità
 	}
 	ImGui::End();
