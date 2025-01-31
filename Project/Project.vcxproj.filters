@@ -192,5 +192,6 @@
     <None Include="Assets\models\cube-monkey.obj" />
     <None Include="Assets\models\test.mtl" />
     <None Include="Assets\models\test.obj" />
+    <None Include="Assets\models\deasert deagle.obj" />
   </ItemGroup>
 </Project>

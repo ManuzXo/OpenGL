@@ -7,7 +7,7 @@ Resources::Models::OBJ::~OBJ()
 	Clear();
 }
 
-bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vector<Entitys::GameObject*> * _gameObjects)
+bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vector<Entitys::GameObject*>* _gameObjects)
 {
 	std::ifstream _fileStream(_filePath);
 	if (!_fileStream.is_open()) {
@@ -16,9 +16,9 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vecto
 	}
 
 	std::string _line, _materialName;
-	
+
 	Entitys::GameObject* _currentGameObject = NULL;
-	
+
 	while (std::getline(_fileStream, _line)) {
 		std::istringstream _iss(_line);
 		std::string _prefix;
@@ -77,23 +77,23 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vecto
 				std::getline(_vertexStream, _vn, '/');
 
 				_face.vertexIndices.push_back(std::stoi(_v) - 1); // Gli indici .obj partono da 1
-				
+
 				if (!_vt.empty())
 					_face.textureIndices.push_back(std::stoi(_vt) - 1);
 				if (!_vn.empty())
 					_face.normalIndices.push_back(std::stoi(_vn) - 1);
 			}
 			_model->m_faces.push_back(_face);
-			
+
 			if (!_materialName.empty()) {
 				_model->m_faces.back().materialName = _materialName;
 			}
 
-			if (_currentGameObject != NULL){
+			if (_currentGameObject != NULL) {
 				_model->m_faces.back().refGameObject = (int*)_currentGameObject;
 			}
 		}
-		
+
 	}
 	_fileStream.close();
 	return true;
@@ -136,7 +136,9 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vecto
 //}
 void Resources::Models::OBJ::AssignVertexDataGameObjects()
 {
-	auto _map = m_materialTemplateLibrary->GetMaterialsColor();
+	std::map<std::string, Utils::Color> _map;
+	if (m_materialTemplateLibrary != NULL)
+		_map = m_materialTemplateLibrary->GetMaterialsColor();
 
 	for (const auto& _face : m_faces)
 	{
@@ -144,7 +146,7 @@ void Resources::Models::OBJ::AssignVertexDataGameObjects()
 		auto _vertexRef = _gameObject->m_vertexData;
 
 		Utils::Color _color(1.0f, 1.0f, 1.0f, 1.0f);
-		if (!_face.materialName.empty())
+		if (!_face.materialName.empty() && _map.size() > 0)
 		{
 			_color.SetRGBA(_map.at(_face.materialName));
 		}
