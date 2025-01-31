@@ -25,7 +25,8 @@ void Graphics::Render::Draw()
 	{
 		for (auto _gObj : *_gameObjects)
 		{
-			glm::mat4 _calcMVP = (*_projection) * (*_cameraView) * _gObj->GetModelMatrix();
+			auto _transform = _gObj->GetTransform();
+			glm::mat4 _calcMVP = (*_projection) * (*_cameraView) * _transform->GetModelMatrix();
 			glUniformMatrix4fv(_mvpLocation, 1, GL_FALSE, glm::value_ptr(_calcMVP));
 			auto _vertexData = _gObj->m_vertexData;
 			_vertexData->Bind();

@@ -75,9 +75,15 @@ void Graphics::DearImGui::Manager::SetupUtils()
 			ImGui::Text("No vertex data");
 		}
 		std::string _posName = "Position " + std::to_string(_counter);
-		if (ImGui::SliderFloat3(_posName.c_str(), glm::value_ptr(_gObj->GetPosition()), -10.0f, 10.0f))
+		std::string _rotName = "Rotation " + std::to_string(_counter);
+		auto _transform = _gObj->GetTransform();
+		if (ImGui::SliderFloat3(_posName.c_str(), glm::value_ptr(_transform->GetPosition()), -10.0f, 10.0f))
 		{
-			_gObj->UpdateModelMatrix();
+			_transform->UpdateModelMatrix();
+		}
+		if (ImGui::SliderFloat3(_rotName.c_str(), glm::value_ptr(_transform->GetRotation()), -360, 360))
+		{
+			_transform->UpdateModelMatrix();
 		}
 		ImGui::Separator(); // Separatore per leggibilità
 		_counter++;

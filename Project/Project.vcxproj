@@ -206,6 +206,7 @@
     <ClCompile Include="Resources\Entitys\GameObject.cpp" />
     <ClCompile Include="Resources\Entitys\GL\Program.cpp" />
     <ClCompile Include="Resources\Entitys\GL\VertexBuffer.cpp" />
+    <ClCompile Include="Resources\Entitys\Math\Transform.cpp" />
     <ClCompile Include="Resources\Models\MTL.cpp" />
     <ClCompile Include="Resources\Models\OBJ.cpp" />
     <ClCompile Include="Resources\Entitys\GL\Shader.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Resources\Entitys\GameObject.h" />
     <ClInclude Include="Resources\Entitys\GL\Program.h" />
     <ClInclude Include="Resources\Entitys\GL\VertexBuffer.h" />
+    <ClInclude Include="Resources\Entitys\Math\Transform.h" />
     <ClInclude Include="Resources\Models\BaseModel.h" />
     <ClInclude Include="Resources\Models\MTL.h" />
     <ClInclude Include="Resources\Models\OBJ.h" />
