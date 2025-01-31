@@ -61,6 +61,7 @@ void Graphics::DearImGui::Manager::SetupUtils()
 	ImGui::Separator();
 	ImGui::Text("Game Objects");
 	ImGui::Separator();
+	unsigned int _counter = 0;
 
 	for (auto _gObj : *_gameObjects)
 	{
@@ -73,9 +74,13 @@ void Graphics::DearImGui::Manager::SetupUtils()
 		else {
 			ImGui::Text("No vertex data");
 		}
-		auto _pos = _gObj->GetPosition();
-		ImGui::SliderFloat3("Position", &_pos.x, -10.0f, 10.0f);
+		std::string _posName = "Position " + std::to_string(_counter);
+		if (ImGui::SliderFloat3(_posName.c_str(), glm::value_ptr(_gObj->GetPosition()), -10.0f, 10.0f))
+		{
+			_gObj->UpdateModelMatrix();
+		}
 		ImGui::Separator(); // Separatore per leggibilità
+		_counter++;
 	}
 	ImGui::End();
 }

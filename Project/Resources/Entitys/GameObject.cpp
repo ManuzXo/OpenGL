@@ -2,16 +2,14 @@
 
 Resources::Entitys::GameObject::GameObject()
 {
-	m_position = glm::vec3(0, 0, 0);
-	m_modelMatrix = glm::translate(glm::mat4(1.0f), GetPosition());
+	SetPosition(glm::vec3(0, 0, 0));
 	m_vertexData = new Entitys::GL::VertexBuffer();
 }
 
 Resources::Entitys::GameObject::GameObject(const std::string& _name)
 {
-	m_position = glm::vec3(0, 0, 0);
+	SetPosition(glm::vec3(0, 0, 0));
 	m_Name = _name;
-	m_modelMatrix = glm::translate(glm::mat4(1.0f), GetPosition());
 	m_vertexData = new Entitys::GL::VertexBuffer();
 }
 
@@ -23,6 +21,11 @@ Resources::Entitys::GameObject::~GameObject()
 const std::string& Resources::Entitys::GameObject::GetName()
 {
 	return m_Name;
+}
+
+void Resources::Entitys::GameObject::UpdateModelMatrix()
+{
+	m_modelMatrix = glm::translate(glm::mat4(1.0f), GetPosition());
 }
 
 const glm::mat4& Resources::Entitys::GameObject::GetModelMatrix()
@@ -38,5 +41,6 @@ glm::vec3& Resources::Entitys::GameObject::GetPosition()
 void Resources::Entitys::GameObject::SetPosition(const glm::vec3& position)
 {
 	m_position = position;
+	UpdateModelMatrix();
 }
 

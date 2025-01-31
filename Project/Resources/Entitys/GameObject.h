@@ -6,6 +6,7 @@ namespace Resources::Entitys {
 		GameObject(const std::string & _name);
 		~GameObject();
 		const std::string& GetName();
+		void UpdateModelMatrix();
 		const glm::mat4& GetModelMatrix();
 		glm::vec3& GetPosition() ;
 		void SetPosition(const glm::vec3& position);
