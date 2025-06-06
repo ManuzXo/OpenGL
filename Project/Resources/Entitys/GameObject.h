@@ -5,6 +5,7 @@ namespace Resources::Entitys {
 		GameObject();
 		GameObject(const std::string& _name);
 		~GameObject();
+		void SetName(const std::string& _name);
 		const std::string& GetName();
 		Math::Transform* GetTransform();
 		GL::VertexBuffer* m_vertexData;

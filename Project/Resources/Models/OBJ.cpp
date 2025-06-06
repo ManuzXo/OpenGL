@@ -17,7 +17,8 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vecto
 
 	std::string _line, _materialName;
 
-	Entitys::GameObject* _currentGameObject = NULL;
+	Entitys::GameObject* _currentGameObject = new Entitys::GameObject();
+	_gameObjects->push_back(_currentGameObject);
 
 	while (std::getline(_fileStream, _line)) {
 		std::istringstream _iss(_line);
@@ -47,7 +48,10 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vecto
 		{
 			std::string _nameObject;
 			_iss >> _nameObject;
-			_currentGameObject = new Entitys::GameObject(_nameObject);
+			_currentGameObject->SetName(_nameObject);
+
+			//NEW Entity
+			_currentGameObject = new Entitys::GameObject();
 			_gameObjects->push_back(_currentGameObject);
 		}
 		else if (_prefix == "v") { // Vertici
@@ -83,15 +87,15 @@ bool Resources::Models::OBJ::Load(std::string _filePath, OBJ* _model, std::vecto
 				if (!_vn.empty())
 					_face.normalIndices.push_back(std::stoi(_vn) - 1);
 			}
-			_model->m_faces.push_back(_face);
 
 			if (!_materialName.empty()) {
-				_model->m_faces.back().materialName = _materialName;
+				_face.materialName = _materialName;
+			}
+			if (_currentGameObject != NULL) {
+				_face.refGameObject = _currentGameObject;
 			}
 
-			if (_currentGameObject != NULL) {
-				_model->m_faces.back().refGameObject = (int*)_currentGameObject;
-			}
+			_model->m_faces.push_back(_face);
 		}
 
 	}
@@ -142,7 +146,7 @@ void Resources::Models::OBJ::AssignVertexDataGameObjects()
 
 	for (const auto& _face : m_faces)
 	{
-		auto _gameObject = (Entitys::GameObject*)_face.refGameObject;
+		auto _gameObject = _face.refGameObject;
 		auto _vertexRef = _gameObject->m_vertexData;
 
 		Utils::Color _color(1.0f, 1.0f, 1.0f, 1.0f);

@@ -1,6 +1,8 @@
 #pragma once
+namespace Resources::Entitys {
+	class GameObject;
+}
 namespace Utils {
-	
 	struct vertexData_t {
 		glm::vec3 position;
 		Color color;
@@ -13,6 +15,7 @@ namespace Utils {
 	struct Normal {
 		float x, y, z;
 	};
+
 	struct Face {
 		// Ogni faccia è una lista di indici (vertice, texture, normale)
 		std::vector<int> vertexIndices;
@@ -25,7 +28,7 @@ namespace Utils {
 		/// <summary>
 		/// Si riferisce alla class Resources::Entitys::Game object, serve a mappare i vertici ecc
 		/// </summary>
-		int* refGameObject;
+		Resources::Entitys::GameObject * refGameObject = nullptr;
 	};
 
 }
